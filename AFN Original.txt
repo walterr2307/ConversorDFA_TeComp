@@ -1,0 +1,18 @@
+# AFN Original
+Q: S, A, B, Z
+Σ: a, b, c
+δ: 
+S, a → A
+S, b → A
+S, b → B
+S, b → S
+S, c → Z
+A, a → A
+A, b → A
+A, b → B
+A, c → B
+B, b → A
+B, b → B
+B, c → Z
+Inicial: S
+Final(s): A, B, Z
