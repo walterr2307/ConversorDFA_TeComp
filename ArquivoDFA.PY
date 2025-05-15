@@ -71,6 +71,3 @@ class ArquivoDFA:
         self.linhas[-1] = self.colocarVirgula(
             self.linhas[-1], [estado.simbolo for estado in self.estados if estado.final]
         )
-
-
-ArquivoDFA("gramatica1.txt")

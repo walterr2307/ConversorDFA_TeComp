@@ -1,0 +1,30 @@
+# AFD Complementado
+Q: A, AB, ABS, B, BZ, S, Z, Ø
+Σ: a, b, c
+δ: 
+A, a → A
+A, b → AB
+A, c → B
+AB, a → A
+AB, b → AB
+AB, c → BZ
+ABS, a → A
+ABS, b → ABS
+ABS, c → BZ
+B, a → Ø
+B, b → AB
+B, c → Z
+BZ, a → Ø
+BZ, b → AB
+BZ, c → Z
+S, a → A
+S, b → ABS
+S, c → Z
+Z, a → Ø
+Z, b → Ø
+Z, c → Ø
+Ø, a → Ø
+Ø, b → Ø
+Ø, c → Ø
+Inicial: S
+Final(s): S, Ø
