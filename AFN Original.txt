@@ -3,16 +3,14 @@ Q: S, A, B, Z
 Σ: a, b, c
 δ: 
 S, a → A
+S, a → Z
 S, b → A
-S, b → B
-S, b → S
-S, c → Z
+S, c → B
 A, a → A
 A, b → A
-A, b → B
 A, c → B
-B, b → A
 B, b → B
+B, a → A
 B, c → Z
 Inicial: S
 Final(s): A, B, Z

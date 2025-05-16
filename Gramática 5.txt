@@ -1,0 +1,14 @@
+Gramática: G = ({S, A, B}, {a, b, c}, R, S)
+
+S → aA  
+S → bB  
+S → aS  
+S → c  
+A → aB  
+A → bA  
+A → cA  
+A → ε  
+B → cA  
+B → bB  
+B → a  
+B → ε  

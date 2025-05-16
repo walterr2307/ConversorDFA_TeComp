@@ -1,0 +1,24 @@
+# AFD Invertido
+Q: A, AZ, B, S, Z, Ø
+Σ: a, b, c
+δ: 
+A, a → A
+A, a → AZ
+A, a → B
+A, b → A
+A, b → AZ
+A, b → S
+AZ, a → S
+B, b → B
+B, c → A
+B, c → AZ
+B, c → S
+Z, c → B
+Ø, a → Z
+Ø, a → Ø
+Ø, b → Z
+Ø, b → Ø
+Ø, c → Z
+Ø, c → Ø
+Inicial(s): A, AZ, B, Z
+Final(s): S

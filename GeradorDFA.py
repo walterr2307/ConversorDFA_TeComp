@@ -1,29 +1,34 @@
-from AjustesFuncoes import Variavel as Estado
-from GeradorNFA import GeradorNFA
+from AjustesFuncoes import (
+    Variavel as Estado,
+)  # Importa a classe Variavel renomeando para Estado
+from GeradorNFA import GeradorNFA  # Importa a classe GeradorNFA
 
 
-class GeradorDFA:
-    def __init__(self, endereco_arquivo):
-        gerador_nfa = GeradorNFA(endereco_arquivo)
-        self.estado_inicial = gerador_nfa.estado_inicial
-        self.nfa_estados = gerador_nfa.estados
-        self.estados = []
-        self.letras = gerador_nfa.letras
-        self.add_estado_novo = True
-        self.add_estado_morto = False
+class GeradorDFA:  # Classe responsável por converter um AFN em AFD
+    def __init__(self, endereco_arquivo):  # Construtor
+        gerador_nfa = GeradorNFA(endereco_arquivo)  # Gera o NFA a partir do arquivo
+        self.estado_inicial = gerador_nfa.estado_inicial  # Estado inicial
+        self.nfa_estados = gerador_nfa.estados  # Lista de estados do NFA
+        self.estados = []  # Estados do DFA
+        self.letras = gerador_nfa.letras  # Alfabeto
+        self.add_estado_novo = (
+            True  # Flag para saber se há novos estados para processar
+        )
+        self.add_estado_morto = False  # Flag para adicionar estado morto (Ø)
 
-        self.criarNovosEstados()
-        self.gerarRotas()
-        self.organizarEstadosMortos()
+        self.criarNovosEstados()  # Cria os estados compostos do DFA
+        self.gerarRotas()  # Gera as transições do DFA
+        self.organizarEstadosMortos()  # Insere transições para estado morto quando necessário
 
-    def organizarEstadosMortos(self):
+    def organizarEstadosMortos(self):  # Preenche regras vazias com transição para Ø
         for estado in self.estados:
             for letra in self.letras:
-
                 if estado.regras[letra] == "":
                     estado.regras[letra] = "Ø"
 
-    def criarNovosEstados(self):
+    def criarNovosEstados(
+        self,
+    ):  # Cria os estados do DFA a partir da combinação de estados do NFA
         simbolos = []
 
         for estado in self.nfa_estados:
@@ -32,30 +37,28 @@ class GeradorDFA:
 
             for prox_estado in estado.regras.values():
                 prox_estado = self.ordenarAlfabeticamente(prox_estado)
-
                 if prox_estado not in simbolos:
                     simbolos.append(prox_estado)
 
         for simbolo in simbolos:
-            self.estados.append(Estado(simbolo))
+            self.estados.append(Estado(simbolo))  # Cria novo estado do DFA
 
-    def ordenarAlfabeticamente(self, estado):
+    def ordenarAlfabeticamente(
+        self, estado
+    ):  # Ordena os caracteres do nome do estado em ordem alfabética
         troca = True
-
         while troca:
             troca = False
-
             for i in range(len(estado) - 1):
                 if estado[i] > estado[i + 1]:
                     copia = estado[i]
                     estado[i] = estado[i + 1]
                     estado[i + 1] = copia
                     troca = True
-
         return estado
 
-    def gerarRotas(self):
-        while self.add_estado_novo:
+    def gerarRotas(self):  # Gera as regras de transição dos estados do DFA
+        while self.add_estado_novo:  # Enquanto houver estados novos a serem processados
             self.add_estado_novo = False
             self.estados_novos = []
 
@@ -73,13 +76,14 @@ class GeradorDFA:
 
                 self.ajustarRegras(estado.regras)
 
-            if self.add_estado_novo:
-                self.estados_novos = list(set(self.estados_novos))
-
+            if self.add_estado_novo:  # Se novos estados foram identificados
+                self.estados_novos = list(set(self.estados_novos))  # Remove duplicatas
                 for e in self.estados_novos:
-                    self.estados.append(Estado(e))
+                    self.estados.append(Estado(e))  # Adiciona os novos estados
 
-    def pegarEstadosEquivalentes(self, estado):
+    def pegarEstadosEquivalentes(
+        self, estado
+    ):  # Retorna os estados do NFA contidos no estado composto
         estados_eq = []
 
         for i in range(len(estado.simbolo)):
@@ -92,7 +96,9 @@ class GeradorDFA:
 
         return estados_eq
 
-    def ajustarRegras(self, regras):
+    def ajustarRegras(
+        self, regras
+    ):  # Ajusta as transições do estado: remove repetições, ordena, verifica novos
         for letra in self.letras:
             if len(regras[letra]) > 1:
                 regras[letra] = regras[letra].replace("Ø", "")
@@ -103,7 +109,9 @@ class GeradorDFA:
             if self.adicionarProximoEstado(regras[letra]):
                 self.estados_novos.append(regras[letra])
 
-    def adicionarProximoEstado(self, prox_estado):
+    def adicionarProximoEstado(
+        self, prox_estado
+    ):  # Verifica se o estado já foi adicionado
         if prox_estado == "":
             return False
 
@@ -114,7 +122,9 @@ class GeradorDFA:
         self.add_estado_novo = True
         return True
 
-    def removerCaracteresRepetidos(self, str):
+    def removerCaracteresRepetidos(
+        self, str
+    ):  # Remove caracteres repetidos do nome do estado composto
         resultado = ""
         vistos = set()
 
