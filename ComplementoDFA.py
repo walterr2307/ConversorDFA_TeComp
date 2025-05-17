@@ -1,13 +1,14 @@
-from ArquivoDFA import ArquivoDFA  # Importa a classe que gera o AFD a partir do NFA
+from AjustesFuncoes import (
+    Variavel as Estado,
+)  # Importa a classe Variavel renomeando para Estado
 
 
 class ComplementoDFA:
-    def __init__(self, endereco_arquivo):  # Construtor da classe
-        arquivo_dfa = ArquivoDFA(
-            endereco_arquivo
-        )  # Gera um AFD a partir do arquivo de entrada
-        self.estados = arquivo_dfa.estados  # Guarda os estados do AFD
+    def __init__(self, arquivo_dfa):  # Construtor da classe
         self.letras = arquivo_dfa.letras  # Guarda o alfabeto
+        self.estados = self.copiarEstados(
+            arquivo_dfa.estados
+        )  # Guarda os estados do AFD
         self.estado_inicial = arquivo_dfa.estado_inicial  # Guarda o estado inicial
         self.linhas = self.ajustarArquivo()  # Prepara o cabeçalho do novo arquivo
         self.trocarFinalInicial()  # Realiza o complemento: inverte finais e não-finais
@@ -17,6 +18,28 @@ class ComplementoDFA:
         with open("AFD Complementado.txt", "w", encoding="utf-8") as arquivo:
             for linha in self.linhas:
                 arquivo.write(linha + "\n")
+
+    def copiarEstados(self, estados):
+        # Cria uma lista vazia para armazenar os novos estados copiados
+        novos_estados = []
+
+        # Itera sobre cada estado fornecido na lista 'estados'
+        for estado in estados:
+            # Cria uma nova instância de Estado com o mesmo símbolo do estado original
+            novo_estado = Estado(estado.simbolo)
+            # Copia os atributos de estado inicial e final
+            novo_estado.inicial = estado.inicial
+            novo_estado.final = estado.final
+
+            # Copia as regras de transição associadas a cada letra
+            for letra in self.letras:
+                novo_estado.regras[letra] = estado.regras[letra]
+
+            # Adiciona o novo estado copiado à lista de novos estados
+            novos_estados.append(novo_estado)
+
+        # Retorna a lista de estados copiados
+        return novos_estados
 
     def trocarFinalInicial(self):  # Inverte os estados finais e não-finais
         for estado in self.estados:

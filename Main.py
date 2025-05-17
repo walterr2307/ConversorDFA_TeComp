@@ -4,10 +4,11 @@ from ArquivoDFA import ArquivoDFA  # Importa a classe para manipular o AFD origi
 
 class Main:
     def __init__(self, endereco_arquivo):
-        ComplementoDFA(endereco_arquivo)  # Gera o AFD complementado a partir do arquivo
-        InversoDFA(endereco_arquivo)  # Gera o AFD invertido a partir do arquivo
+        arq_dfa = ArquivoDFA(endereco_arquivo)
+        ComplementoDFA(arq_dfa)  # Gera o AFD complementado a partir do arquivo
+        InversoDFA(arq_dfa)  # Gera o AFD invertido a partir do arquivo
 
-        self.estados = ArquivoDFA(endereco_arquivo).estados  # Obtém os estados do AFD original
+        self.estados = arq_dfa.estados  # Obtém os estados do AFD original
         palavra = input("Digite a palavra: ")  # Solicita ao usuário uma palavra para teste
         palavra_aceita = self.verificarPalavraAceita(palavra)  # Verifica se a palavra é aceita pelo AFD
 
