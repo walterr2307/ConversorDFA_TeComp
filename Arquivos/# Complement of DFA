@@ -1,0 +1,39 @@
+# Complement of DFA
+Q: A B S Z AB AS AZ BZ ABS ABSZ ∅
+Σ: a b c
+δ:
+A, a → B
+A, b → A
+A, c → A
+B, a → Z
+B, b → B
+B, c → A
+S, a → AS
+S, b → B
+S, c → Z
+Z, a → ∅
+Z, b → ∅
+Z, c → ∅
+AB, a → BZ
+AB, b → AB
+AB, c → A
+AS, a → ABS
+AS, b → AB
+AS, c → AZ
+AZ, a → B
+AZ, b → A
+AZ, c → A
+BZ, a → Z
+BZ, b → B
+BZ, c → A
+ABS, a → ABSZ
+ABS, b → AB
+ABS, c → AZ
+ABSZ, a → ABSZ
+ABSZ, b → AB
+ABSZ, c → AZ
+∅, a → ∅
+∅, b → ∅
+∅, c → ∅
+Iniciais: S
+Finais: S ∅

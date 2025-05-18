@@ -1,0 +1,39 @@
+# Reverse of DFA
+Q: A B S Z AB AS AZ BZ ABS ABSZ ∅
+Σ: a b c
+δ:
+A, b → A
+A, b → AZ
+A, c → A
+A, c → B
+A, c → AB
+A, c → AZ
+A, c → BZ
+B, a → A
+B, a → AZ
+B, b → B
+B, b → S
+B, b → BZ
+Z, a → B
+Z, a → BZ
+Z, c → S
+AB, b → AB
+AB, b → AS
+AB, b → ABS
+AB, b → ABSZ
+AS, a → S
+AZ, c → AS
+AZ, c → ABS
+AZ, c → ABSZ
+BZ, a → AB
+ABS, a → AS
+ABSZ, a → ABS
+ABSZ, a → ABSZ
+∅, a → Z
+∅, a → ∅
+∅, b → Z
+∅, b → ∅
+∅, c → Z
+∅, c → ∅
+Iniciais: A B Z AB AS AZ BZ ABS ABSZ
+Finais: S
