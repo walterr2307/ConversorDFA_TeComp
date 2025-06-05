@@ -1,0 +1,35 @@
+1. GramToNFA
+- Converte uma gramática regular em um autômato finito não determinístico (NFA).
+- Lê um arquivo de texto contendo a definição da gramática.
+- Cria estados e transições com base nas produções da gramática.
+
+2. NFAToDFA
+- Converte um NFA para DFA utilizando o algoritmo de subconjuntos.
+- Cria novos estados determinísticos a partir de conjuntos de estados do NFA.
+- Gera o DFA correspondente e permite sua manipulação.
+
+3. Main
+- Classe principal que executa o processo de conversão e simulação.
+- Lê uma gramática a partir de um arquivo, converte para NFA e depois para DFA.
+- Aplica as transformações de complemento e reversão do DFA.
+- Permite ao usuário digitar uma palavra e verifica se ela é aceita.
+
+4. GerarArquivo
+- Classe Singleton responsável por gerar arquivos `.txt` com os autômatos.
+- Formata e escreve os estados, alfabeto, transições, e os estados iniciais/finais.
+- Suporta saída de DFA, NFA, e autômatos reversos.
+
+5. DFAToComplement
+- Gera o complemento de um DFA.
+- Copia os estados e inverte as marcações de finais para gerar o complemento.
+- Salva o novo autômato em um arquivo.
+
+6. DFAToReversed
+- Gera a versão reversa de um DFA.
+- Inverte as transições e troca os estados iniciais com os finais.
+- Salva o autômato reverso em arquivo.
+
+7. Estado
+- Representa um estado de autômato.
+- Contém símbolo, marcações de estado inicial/final e transições.
+- As transições são armazenadas em um dicionário, mapeando símbolos do alfabeto para estados.
